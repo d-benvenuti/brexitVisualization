@@ -12,6 +12,10 @@ Simple visualization about the relation between the brexit referendum results an
 -	Complete updating the chart on the right when a multiple selection occurs.
 -	Implement SCXML statecharts.
 
+# Bug to fix
+
+-	Right clicking on an already selected region will add it to the multiple selection again. A possible solution is to add a find() to the MultipleSelection class and use it to check if the region is already present during the add() function.
+
 # instructions
 
 - 	Run a http server (e.g. python -m http.server from the folder containing the brexitVisualization.html file);
