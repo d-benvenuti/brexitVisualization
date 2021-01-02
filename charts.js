@@ -26,6 +26,8 @@ var selectedRegionCode = "S12000017";
 var selectedRegionName = "Highland";
 var selectedRegionId = 174;
 
+var currentMultipleSelection = new MultipleSelection(new Region(selectedRegionCode, selectedRegionName), null);
+
 var regionResult = [];
 
 // here, we want the full chart to be 700x200, so we determine
@@ -203,11 +205,11 @@ d3.csv("data/Brexit_data").then(function(data){
 				return "#f7f7f7";
 			} )
 			.on('click', function(d){
-			
+				
 				var temp = d3.values(d.properties)[0];
 				var tempName = d3.values(d.properties)[2];
 				
-				console.log("onClick on a region, " + temp + ", " + tempName + ", removing previous selection");
+				console.log("onClick on a region, " + temp + ", " + tempName + ", removing previous selections");
 				
 				selectedRegionCode = "";
 				selectedRegionName = "";
@@ -217,6 +219,8 @@ d3.csv("data/Brexit_data").then(function(data){
 					
 				selectedRegionCode = temp;
 				selectedRegionName = tempName;
+				
+				currentMultipleSelection = new MultipleSelection(new Region(selectedRegionCode, selectedRegionName), null);
 				
 				d3.select(this)
 				.style('stroke-width', 2.5);
@@ -235,7 +239,23 @@ d3.csv("data/Brexit_data").then(function(data){
 				d3.select(this)
                 .style('fill-opacity', 0.7);
                 }
-            );
+            )
+			.on('contextmenu', function(d, i) {		 //-----------------------MULTIPLE SELECTION
+				
+				d3.event.preventDefault();
+				
+				var temp = d3.values(d.properties)[0];
+				var tempName = d3.values(d.properties)[2];
+				
+				console.log("rightClick on a region, " + temp + ", " + tempName + ", adding it to the current selection.");
+				
+				currentMultipleSelection.add(new Region(temp, tempName, null));
+				
+				console.log("Current selection:\n" + currentMultipleSelection.toString());
+				
+				d3.select(this)
+				.style('stroke-width', 2.5);
+			});
 /*----------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------*/
