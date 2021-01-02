@@ -16,7 +16,7 @@ Simple visualization about the relation between the brexit referendum results an
 
 -	Right clicking on an already selected region will add it to the multiple selection again. A possible solution is to add a find() to the MultipleSelection class and use it to check if the region is already present during the add() function.
 
-# instructions
+# Instructions
 
 - 	Run a http server (e.g. python -m http.server from the folder containing the brexitVisualization.html file);
 - 	Open on Firefox: 'localhost:8000/brexitVisualization.html';
