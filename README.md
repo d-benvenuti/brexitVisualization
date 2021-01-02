@@ -5,10 +5,11 @@ Simple visualization about the relation between the brexit referendum results an
 # State of the implementation
 
 -	Implemented multiple selection on the regions' map.
+-	Started implementing changes on the right chart for multiple selection; right now only texts referring to totals are updated.
 
 # Todo 
 
--	Update the chart on the right when a multiple selection occurs.
+-	Complete updating the chart on the right when a multiple selection occurs.
 -	Implement SCXML statecharts.
 
 # instructions

@@ -2,15 +2,15 @@ class Region{
 	code;
 	name;
 	
-	constructor(c, n, i){
+	constructor(c, n){
 		this.code = c;
 		this.name = n;
-		this.id = i;
 	}
 	
 	toString(){
 		return "REGION: code " + this.code + ", name " + this.name + ";"
 	}
+	
 }
 
 class MultipleSelection{
@@ -45,4 +45,16 @@ class MultipleSelection{
 		else 
 			return this.current.toString() + "\n" + this.next.toString();
 	}
+	
+	getLast(){
+		if (this.next == null)
+			return this.current;
+		else{
+			var pointer = this;
+			while (pointer.next != null)
+				pointer = pointer.next;
+			return pointer.current;
+		}
+	}
+	
 }
