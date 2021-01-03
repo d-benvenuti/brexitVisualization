@@ -5,12 +5,13 @@ Simple visualization about the relation between the brexit referendum results an
 # State of the implementation
 
 -	Implemented multiple selection on the regions' map.
--	Started implementing changes on the right chart for multiple selection; right now only texts referring to totals are updated.
+-	Started implementing changes on the right chart for multiple selection: the first bar chart (the horizontal one) is now fully working, the second one is still WIP.
 -	Improved performance: selecting an already selected region is no longer starting computations.
 
 # Todo 
 
--	Complete updating the chart on the right when a multiple selection occurs.
+-	Update the age intervals bar chart when a multiple selection occurs.
+-	Implement removing from the multiple selection an already selected region.
 -	Implement SCXML statecharts.
 
 # Bugs to fix

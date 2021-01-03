@@ -1,0 +1,27 @@
+//code for the map
+// colors
+//	unknown:#f7f7f7
+//	leave: 	#fc8d59
+//	remain: #91bfdb
+//  young:	#bae4b3
+//  old: 	#31a354
+//	leave&young:	#f4a582
+//	leave&old:		#ca0020
+//	remain&young:	#92c5de
+//	remain&old:		#0571b0
+
+		
+			//regionResult is an array of array
+			//RESULT is 0 or 1, 0 means remain, 1 means leave
+			//AGE is 0 or 1, 0 means age<45, 1 means age>45
+			//each element will have
+			//-0:CODE-1:RESULT-2:#YOUNG-3:#OLD-4:#LEAVE-5:#REMAIN-6:COUNTRY
+			//-7:VOTING PERCENTAGE-8:AGE
+
+//mapping functions for details bars
+	function detailsMapping(x, total){
+			//simple proportion
+			return Y=x*(mapWidth*3/4)/total; 
+	}
+	
+	inverse function is x=y/(mapWidth*3/4)*total
