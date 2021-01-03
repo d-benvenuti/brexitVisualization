@@ -1336,46 +1336,34 @@ d3.csv("data/Brexit_data").then(function(data){
 			);	
 //UPDATE THE BAR CHART
 //get the age in this region
-		i =0;
-		console.log("Current age values: " + selectedRegionAges);
-		//iterate on the dataset
-		while ( i < dataset.length ){
-			temp = d3.values(dataset[i]);
-			//check if this is the region
-			if ( selectedRegionCode == temp[0] ){
-				//save ages in the array
-				if ( !isNaN(parseInt(temp[1])) )
-					selectedRegionAges[0] = selectedRegionAges[0] + parseInt(temp[1]);
-				else
-					selectedRegionAges[0] = selectedRegionAges[0] + 0;
-				//save manually the temp[10] to make selectedRegionAges ordered wrt ages intervals
-				if ( !isNaN(parseInt(temp[10])) )
-					selectedRegionAges[1] = selectedRegionAges[1] + parseInt(temp[10]);
-				else
-					selectedRegionAges[1] = selectedRegionAges[1] + 0;
-				j = 2;
-				//iterate on all the field temp containing an age
-				while ( j <= 9 ) {
-					if ( !isNaN(parseInt(temp[j])) )
-						selectedRegionAges[j] = selectedRegionAges[j] + parseInt(temp[j]);
-					else
-						selectedRegionAges[j] = selectedRegionAges[j] + 0;
-					j++;
-				}
-				j ++;
-				while ( j <= 17 ) {
-					if ( !isNaN(parseInt(temp[j])) )
-						selectedRegionAges[j-1] = selectedRegionAges[j-1] + parseInt(temp[j]);
-					else
-						selectedRegionAges[j-1] = selectedRegionAges[j-1] + 0;
-					j++;
-				}
-				//exit from the while
-				break;
-			}
-			//if not, go to the next element
-			else 
-				i++;
+		
+		temp = d3.values(dataset[selectedRegionId]);
+		//save ages in the array
+		if ( !isNaN(parseInt(temp[1])) )
+			selectedRegionAges[0] = selectedRegionAges[0] + parseInt(temp[1]);
+		else
+			selectedRegionAges[0] = selectedRegionAges[0] + 0;
+		//save manually the temp[10] to make selectedRegionAges ordered wrt ages intervals
+		if ( !isNaN(parseInt(temp[10])) )
+			selectedRegionAges[1] = selectedRegionAges[1] + parseInt(temp[10]);
+		else
+			selectedRegionAges[1] = selectedRegionAges[1] + 0;
+			j = 2;
+		//iterate on all the field temp containing an age
+		while ( j <= 9 ) {
+			if ( !isNaN(parseInt(temp[j])) )
+				selectedRegionAges[j] = selectedRegionAges[j] + parseInt(temp[j]);
+			else
+				selectedRegionAges[j] = selectedRegionAges[j] + 0;
+				j++;
+		}
+		j ++;
+		while ( j <= 17 ) {
+			if ( !isNaN(parseInt(temp[j])) )
+				selectedRegionAges[j-1] = selectedRegionAges[j-1] + parseInt(temp[j]);
+			else
+				selectedRegionAges[j-1] = selectedRegionAges[j-1] + 0;
+			j++;
 		}
 		console.log("Finished collecting amount of people for each interval of age for the selected region");
 		console.log(selectedRegionAges);
