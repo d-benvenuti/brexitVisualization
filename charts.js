@@ -28,6 +28,8 @@ var selectedRegionId = 174;
 
 var currentMultipleSelection = new MultipleSelection(new Region(selectedRegionCode, selectedRegionName), null);
 
+var selectedRegionAges = [];
+
 var regionResult = [];
 
 // here, we want the full chart to be 700x200, so we determine
@@ -723,7 +725,6 @@ d3.csv("data/Brexit_data").then(function(data){
 	//code for the bar chart for age distribution in that region
 	
 	//get the age in this region
-	var selectedRegionAges = [];
 	i =0;
 	//iterate on the dataset
 	while ( i < dataset.length ){
@@ -764,7 +765,7 @@ d3.csv("data/Brexit_data").then(function(data){
 		else 
 			i++;
 	}
-	console.log("Finished collecting amount of people for each interval of age for the selected region");
+	console.log("Finished collecting amount of people for each interval of age for the initial selection");
 	console.log(selectedRegionAges);
 	//g for axis
 	var barChartYAxisG = detailSvg.append("g")
@@ -1128,7 +1129,7 @@ d3.csv("data/Brexit_data").then(function(data){
 			);	
 //UPDATE THE BAR CHART
 //get the age in this region
-		var selectedRegionAges = [];
+		selectedRegionAges = [];
 		i =0;
 		//iterate on the dataset
 		while ( i < dataset.length ){
@@ -1335,8 +1336,8 @@ d3.csv("data/Brexit_data").then(function(data){
 			);	
 //UPDATE THE BAR CHART
 //get the age in this region
-		var selectedRegionAges = [];
 		i =0;
+		console.log("Current age values: " + selectedRegionAges);
 		//iterate on the dataset
 		while ( i < dataset.length ){
 			temp = d3.values(dataset[i]);
@@ -1344,29 +1345,29 @@ d3.csv("data/Brexit_data").then(function(data){
 			if ( selectedRegionCode == temp[0] ){
 				//save ages in the array
 				if ( !isNaN(parseInt(temp[1])) )
-					selectedRegionAges[0] = parseInt(temp[1]);
+					selectedRegionAges[0] = selectedRegionAges[0] + parseInt(temp[1]);
 				else
-					selectedRegionAges[0] = 0;
+					selectedRegionAges[0] = selectedRegionAges[0] + 0;
 				//save manually the temp[10] to make selectedRegionAges ordered wrt ages intervals
 				if ( !isNaN(parseInt(temp[10])) )
-					selectedRegionAges[1] = parseInt(temp[10]);
+					selectedRegionAges[1] = selectedRegionAges[1] + parseInt(temp[10]);
 				else
-					selectedRegionAges[1] = 0;
+					selectedRegionAges[1] = selectedRegionAges[1] + 0;
 				j = 2;
 				//iterate on all the field temp containing an age
 				while ( j <= 9 ) {
 					if ( !isNaN(parseInt(temp[j])) )
-						selectedRegionAges[j] = parseInt(temp[j]);
+						selectedRegionAges[j] = selectedRegionAges[j] + parseInt(temp[j]);
 					else
-						selectedRegionAges[j] = 0;
+						selectedRegionAges[j] = selectedRegionAges[j] + 0;
 					j++;
 				}
 				j ++;
 				while ( j <= 17 ) {
 					if ( !isNaN(parseInt(temp[j])) )
-						selectedRegionAges[j-1] = parseInt(temp[j]);
+						selectedRegionAges[j-1] = selectedRegionAges[j-1] + parseInt(temp[j]);
 					else
-						selectedRegionAges[j-1] = 0;
+						selectedRegionAges[j-1] = selectedRegionAges[j-1] + 0;
 					j++;
 				}
 				//exit from the while
@@ -1378,7 +1379,7 @@ d3.csv("data/Brexit_data").then(function(data){
 		}
 		console.log("Finished collecting amount of people for each interval of age for the selected region");
 		console.log(selectedRegionAges);
-		/*drop the Y scale
+		//drop the Y scale
 		d3.select("#barChartY").remove();
 		//rebuild it with the new scale
 		var barChartYAxisG = d3.select("#detailSvg").append("g")
@@ -1404,7 +1405,7 @@ d3.csv("data/Brexit_data").then(function(data){
         		.attr("y", ageYScale(selectedRegionAges[i]) )
         		.attr("height", mapHeight/4 - ageYScale(selectedRegionAges[i]) );
         	i++;
-        }*/
+        }
 }	
 /*----------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------

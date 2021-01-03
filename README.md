@@ -5,7 +5,7 @@ Simple visualization about the relation between the brexit referendum results an
 # State of the implementation
 
 -	Implemented multiple selection on the regions' map.
--	Started implementing changes on the right chart for multiple selection: the first bar chart (the horizontal one) is now fully working, the second one is still WIP.
+-	Started implementing changes on the right chart for multiple selection: the first bar chart (the horizontal one) is now fully working, the second one is still WIP. The scale of that chart is now working, but each column is not updating.
 -	Improved performance: selecting an already selected region is no longer triggering computations.
 
 # Todo 
