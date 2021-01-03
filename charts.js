@@ -209,26 +209,34 @@ d3.csv("data/Brexit_data").then(function(data){
 				var temp = d3.values(d.properties)[0];
 				var tempName = d3.values(d.properties)[2];
 				
-				console.log("onClick on a region, " + temp + ", " + tempName + ", removing previous selections");
+				var currentRegion = new Region(temp, tempName);
 				
-				selectedRegionCode = "";
-				selectedRegionName = "";
+				console.log("onClick on a region.\n" + currentRegion.toString());
 				
-				d3.selectAll('path')
-					.style('stroke-width', 1);
+				if (!currentMultipleSelection.contains(currentRegion)){
 					
-				selectedRegionCode = temp;
-				selectedRegionName = tempName;
+					console.log("Region not found in the current selection, started adding it.");
+					
+					d3.selectAll('path')
+						.style('stroke-width', 1);
+						
+					selectedRegionCode = temp;
+					selectedRegionName = tempName;
 				
-				currentMultipleSelection = new MultipleSelection(new Region(selectedRegionCode, selectedRegionName), null);
-				
-				d3.select(this)
-				.style('stroke-width', 2.5);
-				
-				console.log("updating details div");
-				
-				updateDetailsDiv();
-				
+					currentMultipleSelection = new MultipleSelection(currentRegion, null);
+					
+					console.log("Current selection:\n" + currentMultipleSelection.toString());
+					
+					d3.select(this)
+					.style('stroke-width', 2.5);
+					
+					console.log("updating details div");
+					
+					updateDetailsDiv();
+				}
+				else {
+					console.log("Region already present in the selection.");
+				}
 			})
 			.on("mouseover", function(d, i) {
 				console.log("mouseover on: " + this);
@@ -247,18 +255,26 @@ d3.csv("data/Brexit_data").then(function(data){
 				var temp = d3.values(d.properties)[0];
 				var tempName = d3.values(d.properties)[2];
 				
-				console.log("rightClick on a region, " + temp + ", " + tempName + ", adding it to the current selection.");
+				var currentRegion = new Region(temp, tempName);
 				
-				currentMultipleSelection.add(new Region(temp, tempName, null));
+				console.log("rightClick on a region.\n" + currentRegion.toString());
 				
-				console.log("Current selection:\n" + currentMultipleSelection.toString());
+				// if the region is not already in the selection
+				if (!currentMultipleSelection.contains(currentRegion)){
+					
+					currentMultipleSelection.add(currentRegion);
 				
-				d3.select(this)
-				.style('stroke-width', 2.5);
+					console.log("Current selection:\n" + currentMultipleSelection.toString());
 				
-				console.log("updating details div");
-				
-				updateDetailsDivMultiple();
+					d3.select(this)
+					.style('stroke-width', 2.5);
+					
+					console.log("updating details div");
+					updateDetailsDivMultiple();
+				}
+				else{
+					console.log("Region already present in the selection.");
+				}
 			});
 /*----------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------

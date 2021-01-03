@@ -6,6 +6,7 @@ Simple visualization about the relation between the brexit referendum results an
 
 -	Implemented multiple selection on the regions' map.
 -	Started implementing changes on the right chart for multiple selection; right now only texts referring to totals are updated.
+-	Improved performance: selecting an already selected region is no longer starting computations.
 
 # Todo 
 
@@ -13,8 +14,6 @@ Simple visualization about the relation between the brexit referendum results an
 -	Implement SCXML statecharts.
 
 # Bugs to fix
-
--	Right clicking on an already selected region will add it to the multiple selection again. A possible solution is to add a find() to the MultipleSelection class and use it to check if the region is already present during the add() function.
 
 # Instructions
 

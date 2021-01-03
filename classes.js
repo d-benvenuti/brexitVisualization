@@ -11,6 +11,12 @@ class Region{
 		return "REGION: code " + this.code + ", name " + this.name + ";"
 	}
 	
+	equals(r){
+		if (this.code == r.code && this.name == r.name)
+			return true;
+		else
+			return false;
+	}
 }
 
 class MultipleSelection{
@@ -57,4 +63,16 @@ class MultipleSelection{
 		}
 	}
 	
+	contains(r){
+		var pointer = this;
+		do{
+			if (pointer.current.equals(r))
+				return true;
+			else {
+				pointer = pointer.next;
+			}
+		}
+		while (pointer != null);
+		
+	}
 }
