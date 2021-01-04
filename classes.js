@@ -85,4 +85,20 @@ class MultipleSelection{
 		}
 		return i;
 	}
+	
+	remove(l,r){
+		var previous;
+		var pointer = l;
+		do {
+			if (pointer.current.equals(r)){
+				if ( previous != null)
+					previous.next = pointer.next;
+				else l = pointer.next;
+			}
+			else {
+				previous = pointer;
+				pointer = pointer.next;
+			}
+		} while (pointer.next != null);
+	}
 }

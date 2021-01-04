@@ -16,7 +16,7 @@ Simple visualization about the relation between the brexit referendum results an
 
 # Bugs to fix
 
--	None known right now.
+-	Function "remove" from the file "classes.js" gives a "is undefined" error when called in file "charts.js". You can see it while trying to deselect a region from a multiple selection.
 
 # Instructions
 

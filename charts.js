@@ -281,6 +281,11 @@ d3.csv("data/Brexit_data").then(function(data){
 					if (selectionSize != 1){
 						//more than 1 element selected, start deselection
 						console.log("Starting deselecting the region.");
+						//we should call a new function to update the details div, say removeDetailsDivMultiple
+						//in which we subtract the selected region's values from the current ones,
+						//instead of adding them, as its done in the updateDetailsDivMultiple
+						remove(currentMultipleSelection, currentRegion);
+						console.log(currentMultipleSelection);
 					}
 				}
 			});
