@@ -75,4 +75,14 @@ class MultipleSelection{
 		while (pointer != null);
 		
 	}
+	
+	size(){
+		var i = 1;
+		var pointer = this;
+		while (pointer.next != null){
+			pointer = pointer.next;
+			i++;
+		}
+		return i;
+	}
 }

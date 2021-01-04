@@ -237,7 +237,7 @@ d3.csv("data/Brexit_data").then(function(data){
 					updateDetailsDiv();
 				}
 				else {
-					console.log("Region already present in the selection.");
+					console.log("Region already selected.");
 				}
 			})
 			.on("mouseover", function(d, i) {
@@ -274,8 +274,14 @@ d3.csv("data/Brexit_data").then(function(data){
 					console.log("updating details div");
 					updateDetailsDivMultiple();
 				}
+				// if the region is already selected 
 				else{
-					console.log("Region already present in the selection.");
+					var selectionSize = currentMultipleSelection.size();
+					console.log("Region already present in the current multiple selection that has size: " + selectionSize);
+					if (selectionSize != 1){
+						//more than 1 element selected, start deselection
+						console.log("Starting deselecting the region.");
+					}
 				}
 			});
 /*----------------------------------------------------------------------------------------------

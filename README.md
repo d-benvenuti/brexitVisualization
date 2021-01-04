@@ -5,7 +5,8 @@ Simple visualization about the relation between the brexit referendum results an
 # State of the implementation
 
 -	Implemented multiple selection on the regions' map (right-click on a region).
--	Improved performance: selecting an already selected region is no longer triggering computations.
+-	Improved performance: selecting an already selected region is no longer triggering computations and removed a useless iteration on all the dataset whenever a region is clicked.
+-	Started implementing deselection when more than 1 region is selected.
 
 # Todo 
 
