@@ -279,13 +279,12 @@ d3.csv("data/Brexit_data").then(function(data){
 					var selectionSize = currentMultipleSelection.size();
 					console.log("Region already present in the current multiple selection that has size: " + selectionSize);
 					if (selectionSize != 1){
-						//more than 1 element selected, start deselection
-						console.log("Starting deselecting the region.");
-						//we should call a new function to update the details div, say removeDetailsDivMultiple
-						//in which we subtract the selected region's values from the current ones,
-						//instead of adding them, as its done in the updateDetailsDivMultiple
-						remove(currentMultipleSelection, currentRegion);
-						console.log(currentMultipleSelection);
+						//More than 1 element selected, start deselection
+						currentMultipleSelection.remove(currentRegion);
+						console.log("Region deselected. New selection is:\n" + currentMultipleSelection.toString());
+						//Set the stroke-width back to 1 since the region is no longer selected
+						d3.select(this)
+							.style('stroke-width', 1);
 					}
 				}
 			});
@@ -1405,9 +1404,15 @@ d3.csv("data/Brexit_data").then(function(data){
         		.attr("height", mapHeight/4 - ageYScale(selectedRegionAges[i]) );
         	i++;
         }
+}
+/*----------------------------------------------------------------------------------------------
+--------FUNCTION TO REMOVE THE SELECTED REGION FROM THE SELECTION ----------------------------
+----------------------------------------------------------------------------------------------*/
+function removeDetailsDivMultiple(){
+	
 }	
 /*----------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------*/
 //onclick functions for button
 

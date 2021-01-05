@@ -86,19 +86,29 @@ class MultipleSelection{
 		return i;
 	}
 	
-	remove(l,r){
+	remove(r){
 		var previous;
-		var pointer = l;
+		var pointer = this;
 		do {
 			if (pointer.current.equals(r)){
-				if ( previous != null)
+				//if the region we want to remove is this one
+				if ( previous != null){
+					//if it is not the first iteration
 					previous.next = pointer.next;
-				else l = pointer.next;
+				}
+				else {
+					//if it is the first iteration
+					this.current = this.next.current;
+					this.next = this.next.next;
+				}
+				//end the cycle since we found the region
+				break;
 			}
 			else {
+				//if it is not the region we want, move to the next
 				previous = pointer;
 				pointer = pointer.next;
 			}
-		} while (pointer.next != null);
+		} while (pointer != null); // repeat until there is no next 
 	}
 }

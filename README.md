@@ -10,13 +10,13 @@ Simple visualization about the relation between the brexit referendum results an
 
 # Todo 
 
--	Implement removing from the multiple selection an already selected region.
+-	Update the charts on the right when a region is removed from the multiple selection.
 -	Implement SCXML statecharts.
 -	Check that the numbers in the right charts are updating correctly when a multiple selection occurs.
 
 # Bugs to fix
 
--	Function "remove" from the file "classes.js" gives a "is undefined" error when called in file "charts.js". You can see it while trying to deselect a region from a multiple selection.
+-	None known.
 
 # Instructions
 
