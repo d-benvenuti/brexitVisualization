@@ -280,11 +280,22 @@ d3.csv("data/Brexit_data").then(function(data){
 					console.log("Region already present in the current multiple selection that has size: " + selectionSize);
 					if (selectionSize != 1){
 						//More than 1 element selected, start deselection
-						currentMultipleSelection.remove(currentRegion);
-						console.log("Region deselected. New selection is:\n" + currentMultipleSelection.toString());
+						var regionToRemove = currentMultipleSelection.remove(currentRegion);
+						console.log("Region deselected:\n" + regionToRemove.toString() + "\nNew selection is:\n" + currentMultipleSelection.toString());
 						//Set the stroke-width back to 1 since the region is no longer selected
 						d3.select(this)
 							.style('stroke-width', 1);
+						if (currentMultipleSelection.size()==1){
+							//If the new size of the selection is 1, call the updateDetailsDiv
+							//to return to single selection 
+							selectedRegionName = currentMultipleSelection.current.name;
+							selectedRegionCode = currentMultipleSelection.current.code;
+							updateDetailsDiv();
+						}
+						else {
+							//Call the removeDetailsDivMultiple to update details charts
+							removeDetailsDivMultiple(regionToRemove);
+						}	
 					}
 				}
 			});
@@ -1004,8 +1015,6 @@ d3.csv("data/Brexit_data").then(function(data){
 ----------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------*/	
 //end of the callback function		
-
-
 });
 /*----------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------
@@ -1213,9 +1222,7 @@ d3.csv("data/Brexit_data").then(function(data){
 //-------------------------------------------------------------------------------------------------------------
 //code to update bars in the details div  (MULTIPLE SELECTION) || remember that we just need to ADD instead of repleacing values
 		function updateDetailsDivMultiple(){   
-		//obtaining the id of newly selected region to look for its details in the array 
-		// selectedRegionId is a counter in this moment
-			
+		
 		//updating the text label
         	d3.select('#selectedRegionLabel')
 				.text("Multiple selection");
@@ -1313,25 +1320,25 @@ d3.csv("data/Brexit_data").then(function(data){
 						75
 			)			
 			.text(	Math.floor( 10*
-						((currentVotesLeave + regionResult[selectedRegionId][4])*100/(currentTotVotes + regionResult[selectedRegionId][4]+regionResult[selectedRegionId][5]))
+						((currentVotesLeave + regionResult[selectedRegionId][4])*100/(currentTotVotes + regionResult[selectedRegionId][4] + regionResult[selectedRegionId][5]))
 					)/10 + "%"
 			);
 		// text on remain bar
 			d3.select('#textOnRemainBar')
 			.text(	Math.floor( 10*
-						((currentVotesRemain + regionResult[selectedRegionId][5])*100/(currentTotVotes + regionResult[selectedRegionId][4]+regionResult[selectedRegionId][5]))
+						((currentVotesRemain + regionResult[selectedRegionId][5])*100/(currentTotVotes + regionResult[selectedRegionId][4] + regionResult[selectedRegionId][5]))
 					)/10 + "%"
 			);
 		// text on young bar
 			d3.select('#textOnYoungBar')
 				.text(	Math.round( 10*
-						((currentYoungPeople + regionResult[selectedRegionId][2])*100/(currentTotPeople + regionResult[selectedRegionId][2]+regionResult[selectedRegionId][3]))
+						((currentYoungPeople + regionResult[selectedRegionId][2])*100/(currentTotPeople + regionResult[selectedRegionId][2] + regionResult[selectedRegionId][3]))
 					)/10 + "%"
 			);;
 		// text on old bar
 			d3.select('#textOnOldBar')
 				.text(	Math.floor( 10*
-						((currentOldPeople + regionResult[selectedRegionId][3])*100/(currentTotPeople + regionResult[selectedRegionId][2]+regionResult[selectedRegionId][3]))
+						((currentOldPeople + regionResult[selectedRegionId][3])*100/(currentTotPeople + regionResult[selectedRegionId][2] + regionResult[selectedRegionId][3]))
 					)/10 + "%"
 			);
 		//text of total for votes
@@ -1408,8 +1415,189 @@ d3.csv("data/Brexit_data").then(function(data){
 /*----------------------------------------------------------------------------------------------
 --------FUNCTION TO REMOVE THE SELECTED REGION FROM THE SELECTION ----------------------------
 ----------------------------------------------------------------------------------------------*/
-function removeDetailsDivMultiple(){
-	
+function removeDetailsDivMultiple(regionToRemove){
+		//get current values of bars and texts
+			var currentTotVotes = parseInt(d3.select("#textTotalVotes").text().substr(7));
+			var currentTotPeople = parseInt(d3.select("#textTotalPeople").text().substr(7));
+			
+			var currentVotesRemain = detailsUnmapping(parseFloat(d3.select('#votesRemainBar').attr('width')), currentTotPeople);
+			var currentVotesLeave = detailsUnmapping(parseFloat(d3.select('#votesLeaveBar').attr('width')), currentTotPeople);
+			var currentYoungPeople = detailsUnmapping(parseFloat(d3.select('#youngPeopleBar').attr('width')), currentTotPeople);
+			var currentOldPeople = detailsUnmapping(parseFloat(d3.select('#oldPeopleBar').attr('width')), currentTotPeople);
+
+		//find its id 	
+        	selectedRegionId = 0; 
+        	while ( selectedRegionId < regionResult.length ){
+        		if ( regionResult[selectedRegionId][0] == regionToRemove.code )
+        			break;
+        		selectedRegionId++;	
+        	}
+			
+			var deselectedRegion = regionResult[selectedRegionId];
+			console.log("Retrieving info on the last region deselected: \n" + deselectedRegion);
+		
+		//updating bars
+		// remain votes bar
+			d3.select('#votesRemainBar')
+				.transition()
+				.duration(750)
+				.delay(0,005)
+			.attr('width', detailsMapping(
+					currentVotesRemain - regionResult[selectedRegionId][5], 
+					currentTotPeople - regionResult[selectedRegionId][2] - regionResult[selectedRegionId][3]
+				)
+			);
+		// leave votes bar
+			d3.select('#votesLeaveBar')
+				.transition()
+				.duration(750)
+				.delay(0,005)
+			.attr('x', 	detailsBarChartOffsetX + 
+						detailsMapping(
+							currentVotesRemain - regionResult[selectedRegionId][5], 
+							currentTotPeople - regionResult[selectedRegionId][2] - regionResult[selectedRegionId][3]
+						)
+			)
+			.attr('width', detailsMapping(
+					currentVotesLeave - regionResult[selectedRegionId][4], 
+					currentTotPeople - regionResult[selectedRegionId][2] - regionResult[selectedRegionId][3]
+				)
+			);
+		// young people bar
+			d3.select('#youngPeopleBar')
+				.transition()
+				.duration(750)
+				.delay(0,005)
+				.attr('width', detailsMapping(
+						currentYoungPeople - regionResult[selectedRegionId][2],
+						currentTotPeople - regionResult[selectedRegionId][2] - regionResult[selectedRegionId][3]
+					)
+				);
+		// old people bar
+			d3.select('#oldPeopleBar')
+				.transition()
+				.duration(750)
+				.delay(0,005)
+				.attr('x', 	detailsBarChartOffsetX + 
+							detailsMapping(
+								currentYoungPeople - regionResult[selectedRegionId][2],
+								currentTotPeople - regionResult[selectedRegionId][2] - regionResult[selectedRegionId][3]
+							)			
+				)
+				.attr('width', detailsMapping(
+						currentOldPeople - regionResult[selectedRegionId][3],
+						currentTotPeople - regionResult[selectedRegionId][2] - regionResult[selectedRegionId][3]
+					)
+				);		
+		//updating text on bars
+		// text on leave bar
+			d3.select('#textOnLeaveBar')
+			.transition()
+			.delay(0,005)
+			.duration(750)
+			.attr('x', 	detailsBarChartOffsetX + 
+						detailsMapping(
+							currentVotesRemain - regionResult[selectedRegionId][5], 
+							currentTotPeople - regionResult[selectedRegionId][2] - regionResult[selectedRegionId][3] 
+						) +
+						detailsMapping(
+							currentVotesLeave - regionResult[selectedRegionId][4], 
+							currentTotPeople - regionResult[selectedRegionId][2] - regionResult[selectedRegionId][3]
+						) - 
+						75
+			)			
+			.text(	Math.floor( 10*
+						((currentVotesLeave - regionResult[selectedRegionId][4])*100/(currentTotVotes - regionResult[selectedRegionId][4] - regionResult[selectedRegionId][5]))
+					)/10 + "%"
+			);
+		// text on remain bar
+			d3.select('#textOnRemainBar')
+			.text(	Math.floor( 10*
+						((currentVotesRemain - regionResult[selectedRegionId][5])*100/(currentTotVotes - regionResult[selectedRegionId][4] - regionResult[selectedRegionId][5]))
+					)/10 + "%"
+			);
+		// text on young bar
+			d3.select('#textOnYoungBar')
+				.text(	Math.round( 10*
+						((currentYoungPeople - regionResult[selectedRegionId][2])*100/(currentTotPeople - regionResult[selectedRegionId][2] - regionResult[selectedRegionId][3]))
+					)/10 + "%"
+			);;
+		// text on old bar
+			d3.select('#textOnOldBar')
+				.text(	Math.floor( 10*
+						((currentOldPeople - regionResult[selectedRegionId][3])*100/(currentTotPeople - regionResult[selectedRegionId][2] - regionResult[selectedRegionId][3]))
+					)/10 + "%"
+			);
+		//text of total for votes
+		d3.select("#textTotalVotes")
+			.text( 	"Total: " +
+					( currentTotVotes - deselectedRegion[4] - deselectedRegion[5] )
+			);
+		//text of total for people
+		d3.select("#textTotalPeople")
+			.text(	"Total: " +
+					( currentTotPeople - deselectedRegion[2] - deselectedRegion[3] )
+			);	
+//UPDATE THE BAR CHART
+//get the age in this region
+		
+		temp = d3.values(dataset[selectedRegionId]);
+		//save ages in the array
+		if ( !isNaN(parseInt(temp[1])) )
+			selectedRegionAges[0] = selectedRegionAges[0] + parseInt(temp[1]);
+		else
+			selectedRegionAges[0] = selectedRegionAges[0] + 0;
+		//save manually the temp[10] to make selectedRegionAges ordered wrt ages intervals
+		if ( !isNaN(parseInt(temp[10])) )
+			selectedRegionAges[1] = selectedRegionAges[1] + parseInt(temp[10]);
+		else
+			selectedRegionAges[1] = selectedRegionAges[1] + 0;
+			j = 2;
+		//iterate on all the field temp containing an age
+		while ( j <= 9 ) {
+			if ( !isNaN(parseInt(temp[j])) )
+				selectedRegionAges[j] = selectedRegionAges[j] + parseInt(temp[j]);
+			else
+				selectedRegionAges[j] = selectedRegionAges[j] + 0;
+				j++;
+		}
+		j ++;
+		while ( j <= 17 ) {
+			if ( !isNaN(parseInt(temp[j])) )
+				selectedRegionAges[j-1] = selectedRegionAges[j-1] + parseInt(temp[j]);
+			else
+				selectedRegionAges[j-1] = selectedRegionAges[j-1] + 0;
+			j++;
+		}
+		console.log("Finished collecting amount of people for each interval of age for the selected region");
+		console.log(selectedRegionAges);
+		//drop the Y scale
+		d3.select("#barChartY").remove();
+		//rebuild it with the new scale
+		var barChartYAxisG = d3.select("#detailSvg").append("g")
+			.attr("id", "barChartY");
+		//creating the new Y scale
+		var ageYScale = d3.scaleLinear()
+			.domain([0, d3.max(selectedRegionAges)])
+			.range([mapHeight/4, 0]);
+		//creating the new Y axis
+		var ageYAxis = d3.axisLeft()
+			.scale(ageYScale);
+		//drawing the new Y axis
+		barChartYAxisG
+			.attr('transform', 'translate(' + detailsBarChartOffsetX + ',' + (mapHeight/1.45) + ')')
+        	.call(ageYAxis);
+        //updating bars
+        i=0;
+        while( i < selectedRegionAges.length ){
+        	d3.selectAll("#bar_"+i)
+        		.transition()
+        		.duration(750)
+        		.delay(0,005)
+        		.attr("y", ageYScale(selectedRegionAges[i]) )
+        		.attr("height", mapHeight/4 - ageYScale(selectedRegionAges[i]) );
+        	i++;
+        }
 }	
 /*----------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------

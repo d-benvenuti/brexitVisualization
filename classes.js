@@ -101,8 +101,8 @@ class MultipleSelection{
 					this.current = this.next.current;
 					this.next = this.next.next;
 				}
-				//end the cycle since we found the region
-				break;
+				//end the cycle by returning the removed region
+				return pointer.current;
 			}
 			else {
 				//if it is not the region we want, move to the next
