@@ -10,6 +10,8 @@ Simple visualization about the relation between the brexit referendum results an
 
 # Todo 
 
+-	Implement a "Select all" button.
+-	Implement a "Deselect all" button.
 -	Implement SCXML statecharts.
 -	Check that the numbers in the right charts are updating correctly when a multiple selection occurs.
 -	Add instructions about selections in the html.

@@ -2484,7 +2484,6 @@ document.getElementById("plotButton").onclick = function(){
 			.text("Total number of outliers: " +
 					(remainOutliers+leaveOutliers) );
 	}	
-    
 /*----------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------*/	
@@ -2493,8 +2492,20 @@ firstTimePlot = 0;
 				
 //ending the plot onclick	
 }
-
-
+//selectAll button
+document.getElementById("selectAllButton").onmouseover = function(){
+	console.log("Mouse over on selectAllButton.");
+}
+document.getElementById("selectAllButton").onclick = function(){
+	console.log("Click on selectAllButton.");
+}
+//deselectAll button
+document.getElementById("deselectAllButton").onmouseover = function(){
+	console.log("Mouse over on deselectAllButton.");
+}
+document.getElementById("deselectAllButton").onclick = function(){
+	console.log("Click on deselectAllButton.");
+}
 /*----------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------*/
