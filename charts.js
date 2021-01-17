@@ -2500,13 +2500,17 @@ document.getElementById("selectAllButton").onclick = function(){
 	console.log("Click on selectAllButton.");
 	var i=0;
 	var pointer;
+	var regionToAdd;
 	while ( i < dataset.length){
 		pointer = d3.values(dataset[i]);
 		temp = pointer[0];
 		tempName = pointer[19];
-		currentMultipleSelection.add(new Region(temp, tempName));
-		d3.select("#"+temp).style('stroke-width', 2.5);
-		updateDetailsDivMultiple();
+		regionToAdd = new Region(temp, tempName);
+		if (!currentMultipleSelection.contains(regionToAdd)){
+			currentMultipleSelection.add(regionToAdd);
+			d3.select("#"+temp).style('stroke-width', 2.5);
+			updateDetailsDivMultiple();
+		}
 		i++;
 	}
 	console.log("Finished iterating on the dataset. Current multiple selecton:\n" + currentMultipleSelection.toString());

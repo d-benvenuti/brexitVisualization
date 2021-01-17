@@ -73,7 +73,7 @@ class MultipleSelection{
 			}
 		}
 		while (pointer != null);
-		
+		return false;
 	}
 	
 	size(){
