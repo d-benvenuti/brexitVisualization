@@ -8,10 +8,10 @@ Simple visualization about the relation between the brexit referendum results an
 -	Improved performance: selecting an already selected region is no longer triggering computations and removed a useless iteration on all the dataset whenever a region is clicked.
 -	Implemented deselection from multiple selection.
 -	Implemented a button to select every region.
+-	Implemented a button to deselect every region.
 
 # Todo 
 
--	Implement a "Deselect all" button.
 -	Implement SCXML statecharts.
 -	Check that the numbers in the right charts are updating correctly when a multiple selection occurs.
 -	Add instructions about selections in the html.

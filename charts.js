@@ -2522,6 +2522,16 @@ document.getElementById("deselectAllButton").onmouseover = function(){
 }
 document.getElementById("deselectAllButton").onclick = function(){
 	console.log("Click on deselectAllButton.");
+	while ( currentMultipleSelection.size() > 1 ){
+		regionToRemove = currentMultipleSelection.remove(currentMultipleSelection.getLast());
+		console.log("Removing from the selection:\n" + regionToRemove.toString());
+		d3.select("#"+regionToRemove.code).style('stroke-width', 1);
+		removeDetailsDivMultiple(regionToRemove);
+	}
+	//to return to single selection 
+	selectedRegionName = currentMultipleSelection.current.name;
+	selectedRegionCode = currentMultipleSelection.current.code;
+	updateDetailsDiv();
 }
 /*----------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------
