@@ -9,13 +9,14 @@ Simple visualization about the relation between the brexit referendum results an
 -	Implemented deselection from multiple selection.
 -	Implemented a button to select every region.
 -	Implemented a button to deselect every region.
+-	Modeled the interaction (file click-widget-model.ppt).
+-	Removed every form of logging except for events generation.
 
 # Todo 
 
--	Implement SCXML statecharts.
+-	Implement the SCXML statechart (relative to click-widget-model.ppt).
 -	Check that the numbers in the right charts are updating correctly when a multiple selection occurs.
 -	Add instructions about selections in the html.
--	Remove unnecessary logging.
 -	Fix buttons' position.
 
 # Bugs to fix

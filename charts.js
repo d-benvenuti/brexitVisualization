@@ -51,7 +51,7 @@ var detailsBarChartOffsetX = 50,
 ----------------------------------------------------------------------------------------------*/
 //fetching the dataset
 
-console.log("Fetching data from Brexit_data");
+//console.log("Fetching data from Brexit_data");
 
 d3.csv("data/Brexit_data").then(function(data){
 
@@ -61,12 +61,12 @@ d3.csv("data/Brexit_data").then(function(data){
 ----------------------------------------------------------------------------------------------*/
 //starting the callback function
 
-	console.log("Fetch completed");
+	//console.log("Fetch completed");
 	
 	dataset = data;
 	
-	console.log("Dataset:");
-	console.log(dataset);
+	//console.log("Dataset:");
+	//console.log(dataset);
 		
 /*----------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ d3.csv("data/Brexit_data").then(function(data){
 			j = 0;
 		var temp;
 		
-		console.log("Obtaining referendum and population info for each region");
+		//console.log("Obtaining referendum and population info for each region");
 
 		while ( i < dataset.length ) {
 			
@@ -134,8 +134,8 @@ d3.csv("data/Brexit_data").then(function(data){
 			i++;
 		}
 		
-		console.log("Obtained results for each region:");
-		console.log(regionResult);
+		//console.log("Obtained results for each region:");
+		//console.log(regionResult);
 
 
 /*----------------------------------------------------------------------------------------------
@@ -217,7 +217,7 @@ d3.csv("data/Brexit_data").then(function(data){
 				
 				if (!currentMultipleSelection.contains(currentRegion)){
 					
-					console.log("Region not found in the current selection, started adding it.");
+					//console.log("Region not found in the current selection, started adding it.");
 					
 					d3.selectAll('path')
 						.style('stroke-width', 1);
@@ -227,17 +227,17 @@ d3.csv("data/Brexit_data").then(function(data){
 				
 					currentMultipleSelection = new MultipleSelection(currentRegion, null);
 					
-					console.log("Current selection:\n" + currentMultipleSelection.toString());
+					//console.log("Current selection:\n" + currentMultipleSelection.toString());
 					
 					d3.select(this)
 					.style('stroke-width', 2.5);
 					
-					console.log("updating details div");
+					//console.log("updating details div");
 					
 					updateDetailsDiv();
 				}
 				else {
-					console.log("Region already selected.");
+					//console.log("Region already selected.");
 				}
 			})
 			.on("mouseover", function(d, i) {
@@ -266,22 +266,22 @@ d3.csv("data/Brexit_data").then(function(data){
 					
 					currentMultipleSelection.add(currentRegion);
 				
-					console.log("Current selection:\n" + currentMultipleSelection.toString());
+					//console.log("Current selection:\n" + currentMultipleSelection.toString());
 				
 					d3.select(this)
 					.style('stroke-width', 2.5);
 					
-					console.log("updating details div");
+					//console.log("updating details div");
 					updateDetailsDivMultiple();
 				}
 				// if the region is already selected 
 				else{
 					var selectionSize = currentMultipleSelection.size();
-					console.log("Region already present in the current multiple selection that has size: " + selectionSize);
+					//console.log("Region already present in the current multiple selection that has size: " + selectionSize);
 					if (selectionSize != 1){
 						//More than 1 element selected, start deselection
 						var regionToRemove = currentMultipleSelection.remove(currentRegion);
-						console.log("Region deselected:\n" + regionToRemove.toString() + "\nNew selection is:\n" + currentMultipleSelection.toString());
+						//console.log("Region deselected:\n" + regionToRemove.toString() + "\nNew selection is:\n" + currentMultipleSelection.toString());
 						//Set the stroke-width back to 1 since the region is no longer selected
 						d3.select(this)
 							.style('stroke-width', 1);
@@ -449,8 +449,8 @@ d3.csv("data/Brexit_data").then(function(data){
 			// go to the next region
 			i++;
 		}
-		console.log("Finished collecting amount of people for each interval of age in all UK:");
-		console.log(ages);
+		//console.log("Finished collecting amount of people for each interval of age in all UK:");
+		//console.log(ages);
 		//g for labels 
 		var mapTextLabelG = svgMap.append('g');
 		//g for axis
@@ -786,8 +786,8 @@ d3.csv("data/Brexit_data").then(function(data){
 		else 
 			i++;
 	}
-	console.log("Finished collecting amount of people for each interval of age for the initial selection");
-	console.log(selectedRegionAges);
+	//console.log("Finished collecting amount of people for each interval of age for the initial selection");
+	//console.log(selectedRegionAges);
 	//g for axis
 	var barChartYAxisG = detailSvg.append("g")
 		.attr("id", "barChartY");
@@ -1189,8 +1189,8 @@ d3.csv("data/Brexit_data").then(function(data){
 			else 
 				i++;
 		}
-		console.log("Finished collecting amount of people for each interval of age for the selected region");
-		console.log(selectedRegionAges);
+		//console.log("Finished collecting amount of people for each interval of age for the selected region");
+		//console.log(selectedRegionAges);
 		//drop the Y scale
 		d3.select("#barChartY").remove();
 		//rebuild it with the new scale
@@ -1247,7 +1247,7 @@ d3.csv("data/Brexit_data").then(function(data){
         	}
 			
 			var selectedRegion = regionResult[selectedRegionId];
-			console.log("Retrieving info on the last region selected: \n" + selectedRegion);
+			//console.log("Retrieving info on the last region selected: \n" + selectedRegion);
 		
 		//updating bars
 		// remain votes bar
@@ -1382,8 +1382,8 @@ d3.csv("data/Brexit_data").then(function(data){
 				selectedRegionAges[j-1] = selectedRegionAges[j-1] + 0;
 			j++;
 		}
-		console.log("Finished collecting amount of people for each interval of age for the selected region");
-		console.log(selectedRegionAges);
+		//console.log("Finished collecting amount of people for each interval of age for the selected region");
+		//console.log(selectedRegionAges);
 		//drop the Y scale
 		d3.select("#barChartY").remove();
 		//rebuild it with the new scale
@@ -1434,7 +1434,7 @@ function removeDetailsDivMultiple(regionToRemove){
         	}
 			
 			var deselectedRegion = regionResult[selectedRegionId];
-			console.log("Retrieving info on the last region deselected: \n" + deselectedRegion);
+			//console.log("Retrieving info on the last region deselected: \n" + deselectedRegion);
 		
 		//updating bars
 		// remain votes bar
@@ -1569,8 +1569,8 @@ function removeDetailsDivMultiple(regionToRemove){
 				selectedRegionAges[j-1] = selectedRegionAges[j-1] + 0;
 			j++;
 		}
-		console.log("Finished collecting amount of people for each interval of age for the selected region");
-		console.log(selectedRegionAges);
+		//console.log("Finished collecting amount of people for each interval of age for the selected region");
+		//console.log(selectedRegionAges);
 		//drop the Y scale
 		d3.select("#barChartY").remove();
 		//rebuild it with the new scale
@@ -2034,7 +2034,7 @@ document.getElementById("plotButton").onclick = function(){
 		fD = Math.floor(end/10); 
 		sD = end%10;
 	}
-	console.log("IDs of people to get from dataset: " + ids);
+	//console.log("IDs of people to get from dataset: " + ids);
 	//retrieving infos from the dataset
 	//temporary vars for the cicle
 	var temp;
@@ -2042,8 +2042,8 @@ document.getElementById("plotButton").onclick = function(){
 	i = 0;
 	j = 0;
 	//iterate on all the dataset
-	console.log("Iterating on all the dataset:");
-	console.log(dataset);
+	//console.log("Iterating on all the dataset:");
+	//console.log(dataset);
 	while ( i < dataset.length ){
 		//prepare the array
 		dataToPlot[c] = [];
@@ -2131,8 +2131,8 @@ document.getElementById("plotButton").onclick = function(){
 	}
 	//Now dataToPlot[i] has: 0-region name, 1-result, 2-#desired, 3-total, 4-region code
 	var regionsNumber = c;
-	console.log("Finished gathering data on: " + regionsNumber + " regions:");
-	console.log(dataToPlot);
+	//console.log("Finished gathering data on: " + regionsNumber + " regions:");
+	//console.log(dataToPlot);
 	
 	//get UPPER_BOUND
 	//sort array and compute first and third quartile
@@ -2144,7 +2144,7 @@ document.getElementById("plotButton").onclick = function(){
 	//computer UPPER_BOUND
 	var upper_bound = thirdQuartile + (iqr * 1.5);
 	
-	console.log(" 1° quartile: " +
+	//console.log(" 1° quartile: " +
 				firstQuartile +
 				", 3° quartile: " +
 				thirdQuartile +
@@ -2194,7 +2194,7 @@ document.getElementById("plotButton").onclick = function(){
 	
 	//if it is the first time, draw circles
 	if ( firstTimePlot == 1) {
-		console.log("first time to plot, drawing all circles");
+		//console.log("first time to plot, drawing all circles");
 		var k = sPOffsetX + 5;
 		i = 0;
 
@@ -2413,7 +2413,7 @@ document.getElementById("plotButton").onclick = function(){
 	
 	// IF IT IS NOT THE FIRST TIME, select every circle and move it
 	else {
-		console.log("not the first time to plot, moving all circles");
+		//console.log("not the first time to plot, moving all circles");
 
 		var i = 0;
 		//move every circle (fill used only to count outliers)
@@ -2513,7 +2513,7 @@ document.getElementById("selectAllButton").onclick = function(){
 		}
 		i++;
 	}
-	console.log("Finished iterating on the dataset. Current multiple selecton:\n" + currentMultipleSelection.toString());
+	//console.log("Finished iterating on the dataset. Current multiple selecton:\n" + currentMultipleSelection.toString());
 	
 }
 //deselectAll button
@@ -2524,7 +2524,7 @@ document.getElementById("deselectAllButton").onclick = function(){
 	console.log("Click on deselectAllButton.");
 	while ( currentMultipleSelection.size() > 1 ){
 		regionToRemove = currentMultipleSelection.remove(currentMultipleSelection.getLast());
-		console.log("Removing from the selection:\n" + regionToRemove.toString());
+		//console.log("Removing from the selection:\n" + regionToRemove.toString());
 		d3.select("#"+regionToRemove.code).style('stroke-width', 1);
 		removeDetailsDivMultiple(regionToRemove);
 	}
