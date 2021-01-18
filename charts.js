@@ -2144,14 +2144,14 @@ document.getElementById("plotButton").onclick = function(){
 	//computer UPPER_BOUND
 	var upper_bound = thirdQuartile + (iqr * 1.5);
 	
-	//console.log(" 1° quartile: " +
+	/*console.log(" 1° quartile: " +
 				firstQuartile +
 				", 3° quartile: " +
 				thirdQuartile +
 				", IQR: " +
 				iqr +
 				", upper_bound: " +
-				upper_bound);
+				upper_bound);*/
 	
 	//GRAPHICAL ELEMENTS
 	
