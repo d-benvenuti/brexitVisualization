@@ -213,7 +213,7 @@ d3.csv("data/Brexit_data").then(function(data){
 				
 				var currentRegion = new Region(temp, tempName);
 				
-				console.log("onClick on a region.\n" + currentRegion.toString());
+				console.log("onclick on: " + currentRegion.toString());
 				
 				if (!currentMultipleSelection.contains(currentRegion)){
 					
@@ -241,11 +241,11 @@ d3.csv("data/Brexit_data").then(function(data){
 				}
 			})
 			.on("mouseover", function(d, i) {
-				console.log("mouseover on: " + this);
+				console.log("mouseover on: " + new Region(d3.values(d.properties)[0], d3.values(d.properties)[2]));
         		d3.select(this).style('fill-opacity', 1);
 			})
 			.on('mouseout', function(d, i) {
-				console.log("mouseout on: " + this);
+				console.log("mouseout from: " + new Region(d3.values(d.properties)[0], d3.values(d.properties)[2]));
 				d3.select(this)
                 .style('fill-opacity', 0.7);
                 }
@@ -259,7 +259,7 @@ d3.csv("data/Brexit_data").then(function(data){
 				
 				var currentRegion = new Region(temp, tempName);
 				
-				console.log("oncontextmenu on:\n" + currentRegion.toString());
+				console.log("oncontextmenu on: " + currentRegion.toString());
 				
 				// if the region is not already in the selection
 				if (!currentMultipleSelection.contains(currentRegion)){
@@ -1607,7 +1607,7 @@ function removeDetailsDivMultiple(regionToRemove){
 //agebutton
 document.getElementById("ageButton").onclick = function(){
 
-	console.log("ageButton onClick");
+	console.log("onclick on: ageButton");
 
 	//updating the map
 	if (mapMode != 1) {
@@ -1707,7 +1707,7 @@ document.getElementById("ageButton").onclick = function(){
 //bothbutton
 document.getElementById("bothButton").onclick = function(){
 
-	console.log("bothButtonOnClick");
+	console.log("onclick on: bothButton.");
 	
 	//updating the map
 	if ( mapMode != 3 ){
@@ -1825,7 +1825,7 @@ document.getElementById("bothButton").onclick = function(){
 //resultsbutton
 document.getElementById("resultsButton").onclick = function(){
 
-	console.log("resultsButtonOnClick");
+	console.log("onclick on: resultsButton.");
 	
 	//updating the map
 	if ( mapMode != 0 ){
@@ -1944,7 +1944,7 @@ document.getElementById("plotButton").onclick = function(){
 	var start = document.getElementById("start").value;
 	var end = document.getElementById("end").value;
 	
-	console.log("plotOnClick: start: " + start + ", end: " + end);
+	console.log("onclick on: plotButton.");
 	//check correctness of input
 	//error conditions ( start >= end || start == "" || end == "" || start < 18)
 	//we need to check even combination
@@ -2494,10 +2494,13 @@ firstTimePlot = 0;
 }
 //selectAll button
 document.getElementById("selectAllButton").onmouseover = function(){
-	console.log("Mouse over on selectAllButton.");
+	console.log("mouseover on: selectAllButton.");
+}
+document.getElementById("selectAllButton").onmouseover = function(){
+	console.log("mouseout from: selectAllButton.");
 }
 document.getElementById("selectAllButton").onclick = function(){
-	console.log("Click on selectAllButton.");
+	console.log("onclick on: selectAllButton.");
 	var i=0;
 	var pointer;
 	var regionToAdd;
@@ -2518,10 +2521,13 @@ document.getElementById("selectAllButton").onclick = function(){
 }
 //deselectAll button
 document.getElementById("deselectAllButton").onmouseover = function(){
-	console.log("Mouse over on deselectAllButton.");
+	console.log("mouseover on: deselectAllButton.");
+}
+document.getElementById("deselectAllButton").onmouseout = function(){
+	console.log("mouseout from: deselectAllButton.");
 }
 document.getElementById("deselectAllButton").onclick = function(){
-	console.log("Click on deselectAllButton.");
+	console.log("onclick on: deselectAllButton.");
 	while ( currentMultipleSelection.size() > 1 ){
 		regionToRemove = currentMultipleSelection.remove(currentMultipleSelection.getLast());
 		//console.log("Removing from the selection:\n" + regionToRemove.toString());
