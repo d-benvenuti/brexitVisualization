@@ -259,7 +259,7 @@ d3.csv("data/Brexit_data").then(function(data){
 				
 				var currentRegion = new Region(temp, tempName);
 				
-				console.log("rightClick on a region.\n" + currentRegion.toString());
+				console.log("oncontextmenu on:\n" + currentRegion.toString());
 				
 				// if the region is not already in the selection
 				if (!currentMultipleSelection.contains(currentRegion)){
