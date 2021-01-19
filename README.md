@@ -24,7 +24,6 @@ Simple visualization about the relation between the brexit referendum results an
 -	Implement the SCXML statechart (relative to click-widget-model.pdf).
 -	Check that the numbers in the right charts are updating correctly when a multiple selection occurs.
 -	Add instructions about selections in the html.
--	Fix buttons' position.
 
 # Bugs to fix
 
