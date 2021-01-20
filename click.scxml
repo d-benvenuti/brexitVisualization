@@ -20,6 +20,7 @@
 	<state id="hovering-region">
 		<transition event="onclick" target="single-selection"/>
 		<transition event="oncontextmenu" target="multiple-de/selection"/>
+		<transition event="mouseout" target="rest"/>
 	</state>
 	
 	<state id="hovering-selectAllButton">
@@ -28,12 +29,20 @@
 	</state>
 	
 	<state id="hovering-deselectButton">
+		<transition event="mouseout" target="rest"/>
+		<transition event="onclick" target="single-selection"/>
 	</state>
 	
 	<state id="single-selection">
+		<transition event="mouseout" target="rest"/>
 	</state>
 	
 	<state id="multiple-de/selection">
+		<onentry>
+			<assign location="selection-size" expr="_event.data[0]"/>
+		</onentry>
+		<transition event="mouseout" target="rest"/>
+		<transition target="single-selection" cond="selection-size==1"/>
 	</state>
 	
 </scxml>
