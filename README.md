@@ -28,7 +28,7 @@ Simple visualization about the relation between the brexit referendum results an
 
 # Bugs to fix
 
--	None known.
+-	When selecting a lot of regions, the numbers in the age-intervals-chart go out of the div.
 
 # Instructions
 
