@@ -18,10 +18,11 @@ Simple visualization about the relation between the brexit referendum results an
 -	Implemented a button to deselect every region.
 -	Modeled the interaction.
 -	Removed every form of logging except for events generation.
+-	Implemented the SCXML statechart (file "click.scxml").
 
 # Todo 
 
--	Implement the SCXML statechart (relative to click-widget-model.pdf).
+-	Attach the SCXML statechart (relative to "click-widget-model.pdf") to the visualization.
 -	Check that the numbers in the right charts are updating correctly when a multiple selection occurs.
 -	Add instructions about selections in the html.
 

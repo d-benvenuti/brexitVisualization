@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml 
+	datamodel="ecmascript"
+    initial="rest"
+    name="slider"
+    version="1.0"
+    xmlns:dbvis="dbvis"
+    xmlns="http://www.w3.org/2005/07/scxml">
+	
+	<datamodel>
+		<data id="selection-size" expr="1"/>
+	</datamodel>
+	
+	<state id="rest">
+		<transition event="mouseover-region" target="hovering-region"/>
+		<transition event="mouseover-sButton" target="hovering-selectAllButton"/>	
+		<transition event="mouseover-dButton" target="hovering-deselectButton"/>
+	</state>
+	
+	<state id="hovering-region">
+		<transition event="onclick" target="single-selection"/>
+		<transition event="oncontextmenu" target="multiple-de/selection"/>
+	</state>
+	
+	<state id="hovering-selectAllButton">
+		<transition event="mouseout" target="rest"/>
+		<transition event="onclick" target="multiple-de/selection"/>
+	</state>
+	
+	<state id="hovering-deselectButton">
+	</state>
+	
+	<state id="single-selection">
+	</state>
+	
+	<state id="multiple-de/selection">
+	</state>
+	
+</scxml>
