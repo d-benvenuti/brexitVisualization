@@ -4,6 +4,10 @@
 ------------- 06-07-2018, La Sapienza, a.y. 2017/2018      ------------------------------------ 
 ------------- Developed for the Visual Analytics course    ------------------------------------ */
 
+d3.select("#map").on("mouseover", function(){
+	console.log("mouseover on: mapDiv");
+});
+
 //vars
 
 var sPHeight = 250,
@@ -241,15 +245,16 @@ d3.csv("data/Brexit_data").then(function(data){
 				}
 			})
 			.on("mouseover", function(d, i) {
+				d3.event.stopPropagation();
 				console.log("mouseover on: " + new Region(d3.values(d.properties)[0], d3.values(d.properties)[2]));
         		d3.select(this).style('fill-opacity', 1);
 			})
-			.on('mouseout', function(d, i) {
+			/*.on('mouseout', function(d, i) {
 				console.log("mouseout from: " + new Region(d3.values(d.properties)[0], d3.values(d.properties)[2]));
 				d3.select(this)
                 .style('fill-opacity', 0.7);
                 }
-            )
+            )*/
 			.on('contextmenu', function(d, i) {		 //-----------------------MULTIPLE SELECTION
 				
 				d3.event.preventDefault();

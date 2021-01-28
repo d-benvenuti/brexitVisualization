@@ -6,8 +6,6 @@ Simple visualization about the relation between the brexit referendum results an
 
 -	Can be found in the "click-widget-model.pdf" file. 
 -	The red transition refers to a conditional one, with no event causing it.
--	"Rest" is a strange state; it's more a transitional one rather than a resting one, like "let's see what happens now, it could be everything, it could be nothing".
--	The behaviour of the widget is well captured, but we have one problem: "mouseout" from a region can lead directly to the "mouseover" on another region, but the model will capture a transition like this: "hovering-region" -> "rest" -> "hovering-region". This could be fine on a moment-to-moment basis, but when analyzing logs it could complicate things, since "rest" could be interpred both as "the user hovered away from the map" and "the user is moving from one region to another".
 
 # State of the implementation
 
